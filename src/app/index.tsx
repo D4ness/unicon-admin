@@ -3,20 +3,22 @@ import './index.css';
 import {withProviders} from "./providers";
 import {Routing} from "../pages";
 import {authGetMe as authGetMeAction} from "./model/auth/authActionCreators";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {makeSelectAuth} from "./model/auth/authSelectors";
+import {useTypedSelector} from "../shared/lib/hooks/useTypedSelector";
 
-function App({auth, authGetMe}:{auth:object; authGetMe: () => void}) {
+function App({authGetMe}:{auth:object; authGetMe: () => void}) {
     useEffect( () => {
         authGetMe()
     }, []);
-    // console.log(auth)
+    const {isAuth} = useTypedSelector( state => state.auth)
+    // console.log(isAuth)
     return (
     <div className="App">
-        Smth...
-
-        <Routing/>
+        {/*Smth...*/}
+        {isAuth ? (<Routing/>): 'Не авторизирован'}
+        {/*<Routing/>*/}
     </div>
   );
 }
