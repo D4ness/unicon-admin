@@ -1,13 +1,13 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {counterReducer} from "../reducers/testCounter";
+import {configureStore} from "@reduxjs/toolkit";
+import {rootReducer} from "../reducers";
 
 
-// combine reducers
-const rootReducer = combineReducers({
-    counter: counterReducer,
-});
 
 // create store
 export type AppState = ReturnType<typeof rootReducer>;
 
-export const store = createStore(rootReducer);
+export const store = configureStore({
+    reducer: rootReducer
+});
